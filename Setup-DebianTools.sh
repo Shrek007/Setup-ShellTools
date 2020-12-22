@@ -10,6 +10,7 @@ fi
 programs="\
  openvpn\
  ipcalc\
+ cmatrix\
 "
 # 
 apt-get install $programs -y
