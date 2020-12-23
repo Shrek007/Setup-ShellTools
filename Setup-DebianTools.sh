@@ -11,6 +11,8 @@ programs="\
  openvpn\
  ipcalc\
  cmatrix\
+ hollywood\
+ tty-clock\
 "
 # 
 apt-get install $programs -y
