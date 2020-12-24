@@ -10,3 +10,12 @@ https://docs.microsoft.com/en-us/windows/wsl/wsl-config#configure-per-distro-lau
 enabled = true
 root = /mnt/
 options = "metadata"
+
+# NOTE***  creating files in bash on the mounted windows file system is ok, but once these files are opened in Windows
+# It becomes somewhat likely that file permissions will revert to Windows ACL. This is because if a file is open and saved
+# in windows, it needs to be overwritten... ie. the file is re-created but in windows.
+# 
+# For this reason, it is advised to work out of the WSL file directories as much as possible.
+# 
+# Side note: moving / copying files from the windows side to the linux side is enough to work around file permission
+# errors, as Windows ACLs cannot exist (more accurately are completely ignored) in the Linux side as WSL 2 is actually a VM
