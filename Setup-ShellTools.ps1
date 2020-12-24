@@ -11,5 +11,3 @@ else {
     mkdir $env:USERPROFILE\.ssh
     New-Item -ItemType file config                  # create empty ssh 'config' file
 }
-
-

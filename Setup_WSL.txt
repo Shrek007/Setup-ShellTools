@@ -1,0 +1,12 @@
+### File permissions
+#   By default, file permissions are imported into WSL by some strange attempted conversion from 
+# Windows ACL permissions (ex. NTFS Security Tab) to Unix based permissions (ex. 0765 or -rwxrw-r-x)
+https://docs.microsoft.com/en-us/windows/wsl/file-permissions
+https://docs.microsoft.com/en-us/windows/wsl/wsl-config#configure-per-distro-launch-settings-with-wslconf
+
+# To make WSL work smoother w/ permissions, it is recommended to enable metadata in WSL instances for unix style permissions
+# Add to /etc/wsl.conf
+[automount]
+enabled = true
+root = /mnt/
+options = "metadata"
