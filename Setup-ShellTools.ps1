@@ -1,5 +1,8 @@
 ### Powershell
 
+# Alias
+set-alias -name grep -value Select-String
+
 # Enable OpenSSH
 Get-WindowsCapability -Online | Where Name -like "OpenSSH.client*" | Add-WindowsCapability -Online
 
