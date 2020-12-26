@@ -1,3 +1,5 @@
+# ISO - Debian 10
+
 # Aliases
 
 # Colorize Bash shell prompt if it exists
@@ -8,6 +10,11 @@ if test -f "$FILE"; then
     $X > $FILE
 fi
 
+# set mappings for terminal shortcuts in either ~/.inputrc OR /etc/inputrc
+FILE=~/.inputrc
+if test -f "$FILE"; then
+    
+
 # List of tools to install put into 'install' variable
 programs="\
  openvpn\
@@ -15,7 +22,7 @@ programs="\
  cmatrix\
  hollywood\
  tty-clock\
- firefox\
+ firefox-esr\
 "
 # 
 apt-get install $programs -y
