@@ -13,10 +13,10 @@ fi
 # set mappings for terminal shortcuts in either ~/.inputrc OR /etc/inputrc
 FILE=~/.inputrc
 if test -f "$FILE"; then
-    
 
 # List of tools to install put into 'install' variable
 programs="\
+ pip3\
  openvpn\
  ipcalc\
  cmatrix\
@@ -26,3 +26,8 @@ programs="\
 "
 # 
 apt-get install $programs -y
+
+
+### Package Managers
+# PIP3 (Python)
+pip3 install bpytop
