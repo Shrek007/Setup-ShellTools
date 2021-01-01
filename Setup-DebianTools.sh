@@ -21,8 +21,13 @@ programs="\
  ipcalc\
  cmatrix\
  hollywood\
+ nms\
  tty-clock\
  firefox-esr\
+ nmap\
+ zenmap\
+ git\
+
 "
 # 
 apt-get install $programs -y
