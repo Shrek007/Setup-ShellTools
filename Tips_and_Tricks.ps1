@@ -197,6 +197,15 @@ Get-Content
 #   WRITE DATA
 Add-Content
 
+#   Execute code with local context on a remote machine; Output relayed to local session
+#   ACTION / REMOTE CODE EXECUTION?
+Invoke-Command -ComputerName $PC -Credential $pass -ScriptBlock {hostname}
+Invoke-Command -Session $session -ScriptBlock {hostname}
+
+#   Check if WinRM (used for PSremoting) is running on machine
+#   VIEW STATUS / GET INFO
+Test-WSMan -ComputerName $PC
+
 # ???
 Invoke-Item
 Get-Event
