@@ -23,6 +23,7 @@ powershell -help
 
 # Save command output to a variable or file AND continue sending it down the pipeline
 # Useful for testing or when you need to split the output but continue on...
+# default param is to assume -FilePath
 HOSTNAME.EXE | Tee-Object -FilePath C:\somelog.txt                      # overwrite logfile
 HOSTNAME.EXE | Tee-Object -FilePath C:\somelog.txt -Append              # append to logfile
 HOSTNAME.EXE | Tee-Object -FilePath C:\somelog.txt C:\otherLog.txt      # multiple logfiles
