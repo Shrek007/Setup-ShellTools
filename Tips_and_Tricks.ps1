@@ -10,8 +10,27 @@ Get-NetTCPConnection | Out-String -stream | Select-String 80
 # Kill a process by PID
 Stop-process -ID 1337 -Force
 
-# List all properties of an object
-$someObject | Select-Object *
+# List all properties of an instance of an object
+$someObject | Select-Object *                   # Hash Table
+$someObject | Format-List -Property *           # Mix of objects w/ properties
+
+# List all members (info associated w/ objects) of a PS Object
+$someObject | Get-Member
+
+# You can pipe things into and out of powershell where-ever you can call it (including in powershell)
+"ls" | powershell
+powershell -help
+
+# Save command output to a variable or file AND continue sending it down the pipeline
+# Useful for testing or when you need to split the output but continue on...
+HOSTNAME.EXE | Tee-Object -FilePath C:\somelog.txt                      # overwrite logfile
+HOSTNAME.EXE | Tee-Object -FilePath C:\somelog.txt -Append              # append to logfile
+HOSTNAME.EXE | Tee-Object -FilePath C:\somelog.txt C:\otherLog.txt      # multiple logfiles
+HOSTNAME.EXE | Tee-Object -Variable someVar                             # variable $someVar
+HOSTNAME.EXE | tee -variable X | nslookup; echo $X                      # save variable for later
+
+# Powershell cmdlets / functions can be grouped as follows
+#   Powershell Version -> PS Provider -> Command -> Members (methods, properties, etc.)
 
 ###########
 # https://stackify.com/powershell-commands-every-developer-should-know/
@@ -193,9 +212,13 @@ Set-Location
 #   GET INFO
 Get-Content
 
-#   Add text to file
+#   Add data to file
 #   WRITE DATA
 Add-Content
+
+#   Overwrite data to a file
+#   WRITE DATA
+Set-Content
 
 #   Execute code with local context on a remote machine; Output relayed to local session
 #   ACTION / REMOTE CODE EXECUTION?
