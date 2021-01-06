@@ -1,0 +1,14 @@
+# This File Specifies what is to be ignored by GIT
+# This can be confirmed by running 'git status'
+
+# Simply enter the name of the folder or file to ignore
+# Wildcards are supported
+########################################################
+
+
+# Files
+##############
+_RoughWork.txt
+
+# Folders
+##############
