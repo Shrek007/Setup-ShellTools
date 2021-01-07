@@ -1,6 +1,10 @@
-# ISO - Debian 10
+### Debian 10
 
-# Aliases
+# .bashrc functions
+neofetch = neofetch --separator ':  \t'
+
+# Aliases to put into ~\.bashrc  OR  ~\.bash_profile
+alias neofetch="neofetch --separator ':  \t'"
 
 # Colorize Bash shell prompt if it exists
 FILE=~/.bashrc
@@ -27,7 +31,8 @@ programs="\
  nmap\
  zenmap\
  git\
-
+ symlinks\
+ neofetch\
 "
 # 
 apt-get install $programs -y
