@@ -33,6 +33,7 @@ programs="\
  git\
  symlinks\
  neofetch\
+ whois\
 "
 # 
 apt-get install $programs -y

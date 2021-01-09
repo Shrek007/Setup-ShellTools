@@ -33,6 +33,27 @@ HOSTNAME.EXE | tee -variable X | nslookup; echo $X                      # save v
 # Powershell cmdlets / functions can be grouped as follows
 #   Powershell Version -> PS Provider -> Command -> Members (methods, properties, etc.)
 
+### How to make API requests
+# Get your token, account number, etc.
+$userName = "target"
+$token = "someTokenForPassword"
+$number = "yourAccountNumber"
+
+# URL endpoint + params
+$url = "https://your-api-endpoint.com/someresource"
+$params = @{
+    To = "whoever";
+    From = "someothervalue";
+    Body = "onemorevalue";
+}
+
+# Create Credential Auth
+$pass = $token | ConvertTo-SecureString -asPlainText -Force
+$cred = New-Object System.Management.Automation.PSCredential($userName, $pass)
+
+# Make API request
+Invoke-WebRequest $url -Method Post -Credential $cred -Body $params -UseBasicParsing | ConvertFrom-Json | Select-Object sid, body
+
 ###########
 # https://stackify.com/powershell-commands-every-developer-should-know/
 # https://www.pdq.com/powershell/
