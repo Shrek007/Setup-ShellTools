@@ -23,7 +23,7 @@ https://adamtheautomator.com/powershell-objects/        # Working w/ Powershell 
 Get-Service -Name * | Select-Object -Property 'Status','DisplayName' |
 Sort-Object -Property 'Status' -Descending
 
-# using backticks [`]
+# using backticks [`] ... ideally should avoid as this is actually escaping the Carriage Return & Line Feed [CRFD]
 Get-Service -Name * | Select-Object -Property 'Status','DisplayName'`
 | Sort-Object -Property 'Status' -Descending
 
