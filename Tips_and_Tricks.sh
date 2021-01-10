@@ -23,6 +23,8 @@ sed 's/pattern/replace/g' file.txt > output.txt     # Take from file.txt, dump t
 sed 's/pattern/replace/g' file.txt                  # Take from file.txt, dump to stdout
 sed -i 's/pattern/replace/g' output.txt             # Take from output.txt, -i for change to file inline, dump to output.txt
 
+cut -f1- -d : --output-delimiter=;                  # (ex. : becomes ;) Simple substitution of delimiter only, can be piped into from something like cat or echo
+
 ### Checksums for files
 which md5sum            #location for all different checksum commands
 ls -l /usr/bin/*sum     #list all checksum commands
