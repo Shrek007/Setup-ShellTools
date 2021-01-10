@@ -18,6 +18,11 @@ https://adamtheautomator.com/powershell-objects/        # Working w/ Powershell 
 ### Useful Object Types
 [ipaddress]
 
+### Exploring Powershell Commands
+# Find out a parameter's: default value, expected object type, if it is required, pre-determined accepted values, accepted pipe input, and wildcards
+Get-Help write-host -Parameter *                   
+Get-Help write-host -Parameter -ForegroundColor
+
 ### Line Continuation Techniques
 # using Pipes [|]  ... Preferred Method
 Get-Service -Name * | Select-Object -Property 'Status','DisplayName' |
