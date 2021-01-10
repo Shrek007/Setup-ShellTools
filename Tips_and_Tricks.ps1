@@ -1,9 +1,52 @@
+#### Good References
+https://adamtheautomator.com/powershell-objects/        # Working w/ Powershell objects!
+
+###
 # Display Emojis using UTF32 encoding
 [char]::ConvertFromUtf32(0x1F4A9)
 
-# filter a string for a pattern, much like grep (use Powershell 7.0+ for syntax highlighting)
+# Generate Random Letters...for testing
+-join ((65..90) + (97..122) | Get-Random -Count 5 | % {[char]$_})
+
+### Convert object types and viewing them
+# Type Casting
+[int]"9" | Get-Member      # at the top you will see the type is System.Int32 instead of System.String
+
+# Using Operators
+"9" -as [int] | Get-Member | Select-Object -first 2
+
+### Useful Object Types
+[ipaddress]
+
+### Line Continuation Techniques
+# using Pipes [|]  ... Preferred Method
+Get-Service -Name * | Select-Object -Property 'Status','DisplayName' |
+Sort-Object -Property 'Status' -Descending
+
+# using backticks [`]
+Get-Service -Name * | Select-Object -Property 'Status','DisplayName'`
+| Sort-Object -Property 'Status' -Descending
+
+### Filtering Techniques
+# Filter Objects
+Where-Object                                    # alias is ?
+
+Get-Service * | Select-Object -Property 'Status','DisplayName' |
+	Where-Object -FilterScript {$_.Status -eq 'Running' -and $_.DisplayName -like "Windows*"}
+
+# Filter Properties of Objects
+Select-Object
+
+# Filter a string for a pattern, much like grep (use Powershell 7.0+ for syntax highlighting)
 "This is a test" | select-string -pattern "is"
 
+### Perform actions on a stream of objects
+# For-Loop
+ForEach-Object                                  # alias is %
+
+Get-Service | ForEach-Object {write-host -ForegroundColor "DarkYellow" $_.DisplayName }
+
+### Useful Conversions
 # Convert any object output to a single string
 Get-NetTCPConnection | Out-String | Select-String 80        # get tcp connectection | convert to single string | "grep"
 
@@ -56,7 +99,7 @@ $cred = New-Object System.Management.Automation.PSCredential($userName, $pass)
 # Make API request
 Invoke-WebRequest $url -Method Post -Credential $cred -Body $params -UseBasicParsing | ConvertFrom-Json | Select-Object sid, body
 
-###########
+########### Other References...
 # https://stackify.com/powershell-commands-every-developer-should-know/
 # https://www.pdq.com/powershell/
 # https://www.comparitech.com/net-admin/powershell-cheat-sheet/
