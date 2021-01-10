@@ -1,3 +1,6 @@
+# Display Emojis in the terminal
+echo -e "\U0001F600"
+
 # A great resource for all things using 'curl'
 curl cheat.sh               # How to use cheat.sh
 curl cheat.sh/:list         # list of all topics!
