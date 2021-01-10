@@ -25,6 +25,14 @@ sed -i 's/pattern/replace/g' output.txt             # Take from output.txt, -i f
 
 cut -f1- -d : --output-delimiter=;                  # (ex. : becomes ;) Simple substitution of delimiter only, can be piped into from something like cat or echo
 
+# Filter/truncate content to be displayed
+cut -f 1 -d : infile.txt > outfile.txt              # Take from infile.txt and dump to outfile.txt
+echo "hello,big,world" | cut -f 2 -d ,              # display 2nd of the fields, which are delimited by commas, to stdout
+echo "hello,big,world" | cut -f 2- -d ,             # display 2nd field up to last field    
+echo "hello,big,world" | cut -f -2 -d ,             # display 2nd filed up to first field
+echo "hello,big,world" | cut -f 1,3 -d ,            # display 1st and 3rd fields
+
+
 ### Checksums for files
 which md5sum            #location for all different checksum commands
 ls -l /usr/bin/*sum     #list all checksum commands
