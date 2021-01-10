@@ -20,6 +20,13 @@ sed 's/pattern/replace/g' file.txt > output.txt     # Take from file.txt, dump t
 sed 's/pattern/replace/g' file.txt                  # Take from file.txt, dump to stdout
 sed -i 's/pattern/replace/g' output.txt             # Take from output.txt, -i for change to file inline, dump to output.txt
 
+### Checksums for files
+which md5sum            #location for all different checksum commands
+ls -l /usr/bin/*sum     #list all checksum commands
+sha256sum file.txt      #choose command to calculate type of checksum
+
+
+
 ### Make API requests in Bash
 # create credential
 account_sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
