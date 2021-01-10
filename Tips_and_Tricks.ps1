@@ -1,3 +1,6 @@
+# Display Emojis using UTF32 encoding
+[char]::ConvertFromUtf32(0x1F4A9)
+
 # filter a string for a pattern, much like grep (use Powershell 7.0+ for syntax highlighting)
 "This is a test" | select-string -pattern "is"
 
@@ -35,9 +38,8 @@ HOSTNAME.EXE | tee -variable X | nslookup; echo $X                      # save v
 
 ### How to make API requests
 # Get your token, account number, etc.
-$userName = "target"
+$userName = "oftenCalledSID"
 $token = "someTokenForPassword"
-$number = "yourAccountNumber"
 
 # URL endpoint + params
 $url = "https://your-api-endpoint.com/someresource"
