@@ -50,3 +50,12 @@ available_number=`curl -X GET \
     -u "${account_sid}:${auth_token}" | \
     sed -n "/PhoneNumber/{s/.*<PhoneNumber>//;s/<\/PhoneNumber.*//;p;}"` \
     && echo $available_number 
+
+### Enumeration
+# Devices
+nmap
+rustscan        # faster nmap written in R, and supports python https://github.com/RustScan/RustScan
+netdiscover
+
+# Websites
+whatweb
