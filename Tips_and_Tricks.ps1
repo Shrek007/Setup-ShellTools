@@ -196,11 +196,11 @@ Checkpoint-Computer
 
 #   Find out if 2 objects/sub-objects are equal and how they differ
 #   SORT / FILTER
-Compare-Object -ReferenceObject $object1 -DifferenceObject $object2                      
 #   <=  Property populated in 'Reference' object [property does not exist for 'Difference' Object]  
 #   =>  Property populated in 'Difference' object [property does not exist for 'Reference' Object]
 #   <>  Property populated for both 'Reference' and 'Difference' object, values not equal
 #   ==  Property populated for both 'Reference' and 'Difference' object, values are equal
+Compare-Object -ReferenceObject $object1 -DifferenceObject $object2                      
 
 #   Convert String(s) to Hash Table Object (Name:Value pair)
 #   Name=Value
