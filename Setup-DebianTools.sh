@@ -34,6 +34,7 @@ programs="\
  symlinks\
  neofetch\
  whois\
+ netdiscover\
 "
 # 
 apt-get install $programs -y
