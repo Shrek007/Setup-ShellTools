@@ -59,3 +59,24 @@ netdiscover
 
 # Websites
 whatweb
+
+### Wifi
+# Capturing
+aircrack-ng suite       # Identify wifi card, enter monitor mode, listen to traffic,identify target, kick target off network, listen for handshake, then crack hash
+                        # \----iwconfig-----/\----airmon-ng-----/\----------airodump-ng------------/\-----aireplay-ng------/\-----airodump-ng-----/\----aircrack-ng----/                           
+kesmit
+
+# Cracking
+aircrack-ng suite
+bettercap               # Does not require a connected wifi client to obtain and crack a hash.... somehow
+bully                   # Pixie dust attack (WPS Pixie) attack in less than 10 seconds if vulnerable
+reaver                  # Pixie dust attack
+airgeddon               # This tool actuallly does a whole bunch of streamlined stuff
+
+# Decryption
+hashcat                 # Can crack nearly any hashtype, accelerated by using system hardware
+
+# Analysis / Graphs
+aircrack-ng suite
+kismet                  # A signal intellegence tool, can monitor signals from far away
+
