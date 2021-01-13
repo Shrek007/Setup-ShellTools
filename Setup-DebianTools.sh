@@ -35,6 +35,7 @@ programs="\
  neofetch\
  whois\
  netdiscover\
+ tmux\
 "
 # 
 apt-get install $programs -y
