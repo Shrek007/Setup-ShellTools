@@ -12,6 +12,15 @@ curl 192.168.1.1:[3000-6000] -m 3
 # Run multiple arguments through a single command
 for x in '*.gz'; do gunzip $x; done
 
+## Search for information through text
+# grep - simple patterns
+curl github.com | grep 'Git'
+                | grep -n 'Git'
+                | grep 
+# egrep - Regex
+curl github.com | egrep '/[gG]it/g'    # lower/uppercase
+                | egrep 'i/git/g'      # case insensitive, many more options - this isn't a regex tutorial
+
 # Swap and replace characters
 sed 's/someRegex/replaceWithThis/numberOfFieldsInLineToReplace'
 
@@ -32,6 +41,9 @@ echo "hello,big,world" | cut -f 2- -d ,             # display 2nd field up to la
 echo "hello,big,world" | cut -f -2 -d ,             # display 2nd filed up to first field
 echo "hello,big,world" | cut -f 1,3 -d ,            # display 1st and 3rd fields
 
+# Delete files and objects
+rm                                  # standard for deleting the pointers to files and folders
+shred                               # Careful!! this overwrites files to hide it's contents, optionally delete's it
 
 ### Checksums for files
 which md5sum            #location for all different checksum commands
