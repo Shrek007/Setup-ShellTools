@@ -91,4 +91,4 @@ hashcat                 # Can crack nearly any hashtype, accelerated by using sy
 # Analysis / Graphs
 aircrack-ng suite
 kismet                  # A signal intellegence tool, can monitor signals from far away
-
+wavemon                 # Live signal strength graph and essid scanning... Also the best "help" page I've ever seen in-app
