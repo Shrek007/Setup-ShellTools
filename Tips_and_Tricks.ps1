@@ -104,6 +104,10 @@ $cred = New-Object System.Management.Automation.PSCredential($userName, $pass)
 # Make API request
 Invoke-WebRequest $url -Method Post -Credential $cred -Body $params -UseBasicParsing | ConvertFrom-Json | Select-Object sid, body
 
+# Get Date for logging
+$(Get-Date -format g) >> log.txt      #  2021-01-15 11:20 PM  appended into log.txt
+
+
 ########### Other References...
 # https://stackify.com/powershell-commands-every-developer-should-know/
 # https://www.pdq.com/powershell/
