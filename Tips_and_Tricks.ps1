@@ -107,6 +107,25 @@ Invoke-WebRequest $url -Method Post -Credential $cred -Body $params -UseBasicPar
 # Get Date for logging
 $(Get-Date -format g) >> log.txt      #  2021-01-15 11:20 PM  appended into log.txt
 
+### Build in explicit error catching to scripts with Try-Catch
+# Jump to point #5 of https://virtuallysober.com/2018/10/18/my-top-10-powershell-tips-tricks/
+Try
+{
+    $TrySuccess = $True                                     # Assume successful unless something goes wrong, remove when done testing 
+    $Host = "Can't overwrite This environment variable"     # this will fail
+}
+Catch
+{
+    $TrySuccess = $False                                    # for tracking failure state outside of Try-Catch statement
+    "Trying to overwrite $Host variable failed..."
+    "----------------------------------------------"
+    $_.Exception.ToString()                                 # Grab 'Exception' section of error message trace and output as string
+    $error[0] | Format-List -Force                          # Grab all sections of error message trace and output as list (requires -Force)
+    $error[0]                                               # Outputs line error occured and reason -> Preferred option for simple scripts
+}
+# Showing result
+"TrySuccess:$TrySuccess"
+
 
 ########### Other References...
 # https://stackify.com/powershell-commands-every-developer-should-know/
