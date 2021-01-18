@@ -21,6 +21,11 @@ curl github.com | grep 'Git'
 curl github.com | egrep '/[gG]it/g'    # lower/uppercase
                 | egrep 'i/git/g'      # case insensitive, many more options - this isn't a regex tutorial
 
+### Search through Filesystem
+# find - files & directories based on name, size, time, user, and permissions
+find / "name"                                                                           # simple search
+find /usr/bin -type f -user user2 -perm o=rw -size +150m -name "some_cool_file.txt"     # pullin out all the stops
+
 # Swap and replace characters
 sed 's/someRegex/replaceWithThis/numberOfFieldsInLineToReplace'
 
