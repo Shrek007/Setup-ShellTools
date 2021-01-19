@@ -1,3 +1,5 @@
+## This is a test - automated comments
+
 # Display Emojis in the terminal
 echo -e "\U0001F600"
 
