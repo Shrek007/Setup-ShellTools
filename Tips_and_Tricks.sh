@@ -70,6 +70,19 @@ available_number=`curl -X GET \
     sed -n "/PhoneNumber/{s/.*<PhoneNumber>//;s/<\/PhoneNumber.*//;p;}"` \
     && echo $available_number 
 
+### Swiss Army Knife - TCP/UDP
+# netcat - has diff. versions w/ diff. switches, cross platform - ncat is used by nmap, can be accessed from windows cmd
+nc -l 6666                   # [server] open a TCP listener on local port 666, can be tested w/ "curl 127.0.0.1:666"
+nc 192.168.0.2 6666          # [client] connect to TCP listener on socket 192.168.0.2:666
+nc -e /bin/bash              # takes input received by netcat, and EXECUTES /bin/bash, piping all input to /bin/bash
+                                # the -e option is often not supported by certain netcat variants
+
+nc -l -p 6666 -e /bin/bash  # [server] create a listener on local port 6666 which has spawned a bash session and will pipe input to it
+nc 192.168.0.2 6666         # [client] effectively connect to bash shell created above
+
+nc -l -p 6666 > file.txt    # [server] create listener, redirect output to file.txt
+nc 192.168.0.2 6666         # [client] whatever you type here will show up in file.txt
+
 ### Enumeration
 # Devices
 nmap
