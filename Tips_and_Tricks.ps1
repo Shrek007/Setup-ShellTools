@@ -135,6 +135,20 @@ Catch
   
 # https://docs.microsoft.com/en-us/powershell/scripting/developer/cmdlet/approved-verbs-for-windows-powershell-commands?view=powershell-7.1
 ##########
+
+###################################
+### WORKING W/ ACTIVE DIRECTORY ###
+###################################
+
+#   Create a new user
+#   NEW OBJECT
+New-ADUser
+New-ADUser -Name "ChewDavid" -OtherAttributes @{'title'="director";'mail'="chewdavid@fabrikam.com"}
+
+##############################
+### USEFUL SINGLE COMMANDS ###
+##############################
+
 #   Search/Find Commands
 #   LEARN
 Get-Command
