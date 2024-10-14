@@ -1,0 +1,355 @@
+# Choice Selection:  
+$option_0 = New-Object ChoiceDescription("&Both - ALL", "Both")
+$option_1 = New-Object ChoiceDescription("&HB", "HB")
+$option_2 = New-Object ChoiceDescription("&OS", "OS")
+
+$optionSet = [ChoiceDescription[]]($option_0,$option_1,$option_2)
+$choice = $Host.Ui.PromptForChoice("Environment", "Choose your Client", $optionSet, 0)
+
+switch ($choice)
+{
+    0 { $${2:var}}
+    1 { $${2:var}}
+    2 { $${2:var}}
+}
+
+////////////////////////////////////////
+
+$GitRoot = $(git rev-parse --show-toplevel)
+$LocalRoot
+
+////////////////////////////////////////
+
+#####################
+### User Interaction
+#####################
+
+# Welcome
+Write-Host -ForegroundColor Yellow "----------------------------------------------------------"
+Write-Host -ForegroundColor Magenta "Welcome to the ${1:ToolName}"
+Write-Host -ForegroundColor Yellow "----------------------------------------------------------"
+
+////////////////////////////////////////
+
+Write-Error "Error on line: $($_.InvocationInfo.ScriptLineNumber) | ${1:Short_Error_Message}"
+
+////////////////////////////////////////
+
+Select-Object `
+    @{n='newPropertyName_01';   e={$_.oldPropertyName_01}},
+    @{n='newPropertyName_02';    e={$_.oldPropertyName_02}}
+	
+///////////////////////////////////////
+
+# Create Hashtable for one of the objects
+$ht = @{}
+foreach($Record in $Expected_HB_NIHB){
+    # Normalize Data in hashkey you create
+    $key = "$($Record.property11.trim() -as [string])|$($Record.property22.trim() -as [string])"
+    $ht[$key] = $Record
+}
+
+# Iterate through other object, looking for matching hashkey
+foreach($record in $Expected_HB_Both){
+    # Construct a key to match against
+    $key = "$($Record.property11.trim() -as [string])|$($Record.property22.trim() -as [string])"
+
+    if($ht.ContainsKey($key)){
+
+        # retrieve the object stored in the hashtable
+        $object2 = $ht[$key]
+
+        # Assign the NIHB Rates to the pass by reference $record in $Expected_HB_Both
+        $record.property1 = $object2.property1
+        $record.property2= $object2.property2
+        $record.property3 = $object2.property3
+    }
+    else {
+        Write-Error 'Object1 record missing from Object2 Collection'
+ }
+}
+
+/////////////////////////////////
+
+<#
+	Normalize Data (Whitespaces, zeros/nulls, number vs string, invisible characters)
+#>
+
+/////////////////////////////////
+
+$${1:arrListObj} = New-Object -TypeName System.Collections.ArrayList
+
+/////////////////////////////////
+
+[string[]]$ColumnOrder = @(${3:"header1"})
+
+$params = @{
+    Path = $${1:PathToExcelFile}
+	WorksheetName = $${2:WorksheetName}
+    ClearSheet = $true
+    AutoSize = $true
+    FreezeTopRow = $true
+    boldTopRow = $true
+    NoNumberConversion = "*"
+    NoHyperLinkConversion = $true
+	Append = $false
+}
+
+$${4:Collection} | Select-Object -Property $ColumnOrder   | Export-Excel @params
+
+////////////////////////////////
+
+$i++	# set before loop
+Write-Progress -Activity "${1:"GeneralMsg"}" -Status "Record: $i/$($${2:Collection}.Count)" -PercentComplete (($i / $${2:Collection}.Count)  * 100)
+
+////////////////////////////////
+
+# Add Property to object
+$${1:object} | Add-Member -MemberType NoteProperty -Name '${2:Name}' -Value "DefaultValue"
+
+////////////////////////////////
+
+######################################
+#### ${1:Title}
+#
+# ${2:Short Paragraph about this script}
+#
+#
+#   Inputs:
+#		${3:Files required by script}
+#
+#   Output:
+#		${4:Files Output by script}
+#
+######################################
+
+/////////////////////////////////////
+
+<#
+	Foreach loop with a progress bar, and a timer for how often it checks in
+#>
+
+/////////////////////////////////////
+
+### Open Excel Doc to Sheet
+$Excel = New-Object -ComObject Excel.Application
+$Workbook = $Excel.Workbooks.Open(${1:Path_to_Exce_File})
+$Excel.Visible = $true
+$Worksheet = $Workbook.Worksheets["${2:WorksheetName}"]
+$Worksheet.Activate()
+
+/////////////////////////////////////
+
+####################
+### Prep
+####################
+
+using namespace System.Management.Automation.Host		# For Choice Selection
+Import-Module ((Join-Path $PSScriptRoot "..\Modules\HelperFunctions\HelperFunctions.psm1")|Resolve-Path) -Force
+
+/////////////////////////////////////
+
+####################
+### Closing Summary
+####################
+
+Write-Host -ForegroundColor Yellow "----------------------------------------------------------"
+Write-Host -ForegroundColor Yellow "Output File Name 1"
+Write-Host -ForegroundColor Cyan "$Client $Template"
+Write-Host -ForegroundColor Cyan $params.Path
+Write-Host -ForegroundColor Cyan "Worksheet: $($params.WorksheetName)"
+Write-Host -ForegroundColor Yellow "----------------------------------------------------------"
+Write-Host -ForegroundColor Green "✔ DONE"
+
+#Wait-Debugger
+
+/////////////////////////////////////
+<#
+	Hashtable to house all global script variables/arrays as key-value pairs
+#>
+
+/////////////////////////////////////
+
+Write-Error -ErrorAction "$((Get-PSCallStack)[0].FunctionName)"
+
+/////////////////////////////////////
+
+Write-Host "${1:msg_01}|${2:msg_02}|${3:msg_03}"
+
+/////////////////////////////////////
+
+# Create New Object based on existing object
+$${1:newObj} = [PSCustomObject]@{}
+Foreach($property in ($${2:existingObj}.psobject.Properties.name)){
+    $${1:newObj} | Add-Member -MemberType NoteProperty -Name $property -Value 'defaultValue'
+}
+
+//////////////////////////////////////
+### File Dialogue Window
+# Load the necessary assembly
+Add-Type -AssemblyName System.Windows.Forms
+
+# Create an OpenFileDialog object
+$openFileDialog = New-Object System.Windows.Forms.OpenFileDialog
+
+# Set the filter for Excel files
+$openFileDialog.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm"
+
+# Show the dialog and store the result
+$dialogResult = $openFileDialog.ShowDialog()
+
+# Check if the user clicked OK
+if ($dialogResult -eq [System.Windows.Forms.DialogResult]::OK){
+    ### Import as Datatable
+    Import-Module ImportExcel
+    $excelFilePath = $openFileDialog.FileName
+
+    $dataTable = Import-Excel -Path $excelFilePath -StartRow 5 -
+
+    #Create Subitem array object
+    $headerDictionary = @{}
+    $subitemHeaders = ($dataTable | where{$_.Name -eq "Subitems"} | get-unique).psobject.properties.value
+    foreach ($key in $subitemHeaders) {
+        $value = ""
+        $headerDictionary.Add($key,$value)
+    }
+
+    $x = New-Object -TypeName psobject -Property $subitemHeaders
+
+     # Define the column name and the value to check
+    $columnFilterName = "Name"
+    $columnFilterValue =
+
+     # Filter out rows where the specified column has a value
+     $filteredRows = $dataTable.Rows | Where-Object { -not [string]::IsNullOrEmpty($_["Name"]) }
+
+     # Create a new DataTable to store the filtered rows
+     $filteredDataTable = $dataTable.Clone()  # Clones the structure of the DataTable
+
+     # Add the filtered rows to the new DataTable
+     foreach ($row in $filteredRows) {
+         $filteredDataTable.ImportRow($row)
+     }
+
+
+    # Display the data from the DataTable
+    $dataTable | Format-Table -AutoSize
+}
+else {
+    Write-Host "No file selected."
+}
+
+ # Define the column name and the value to check
+ $columnName = "Status"
+
+ # Filter out rows where the specified column has a value
+ $filteredRows = $dataTable.Rows | Where-Object { -not [string]::IsNullOrEmpty($_[$columnName]) }
+
+ # Create a new DataTable to store the filtered rows
+ $filteredDataTable = $dataTable.Clone()  # Clones the structure of the DataTable
+
+ # Add the filtered rows to the new DataTable
+ foreach ($row in $filteredRows) {
+     $filteredDataTable.ImportRow($row)
+ }
+
+//////////////////////////////////
+
+# Step 2: Connect to Exchange Online
+$UserCredential = Get-Credential
+Connect-ExchangeOnline -UserPrincipalName $UserCredential.UserName -ShowProgress $true
+
+# Step 3: Define the Room and the Date
+$roomEmail = "Room_101@contoso.ca"  # Replace with the room's email address
+$date = Get-Date -Hour 0 -Minute 0 -Second 0
+
+# Step 4: Query the Room's Calendar
+# Define the date range
+$startDate = $date
+$endDate = $date.AddDays(1).AddSeconds(-1)  # End of the same day
+
+# Query the room's calendar
+$calendarItems = Get-CalendarDiagnosticObjects -Identity $roomEmail -StartDate $startDate -EndDate $endDate
+
+# Filter and display the results
+$meetings = $calendarItems | Where-Object { $_.StartTime -ge $startDate -and $_.EndTime -le $endDate }
+
+# Step 5: Display the Meeting Details
+foreach ($meeting in $meetings) {
+    Write-Output "Subject: $($meeting.Subject)"
+    Write-Output "Organizer: $($meeting.Organizer)"
+    Write-Output "Start: $($meeting.StartTime)"
+    Write-Output "End: $($meeting.EndTime)"
+    Write-Output "----------------------------"
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#Functions
+
+# parameter options/modifiers
+param (
+    [Parameter(Mandatory,ValueFromPipeline)]
+    [System.Collections.ArrayList]
+    $ArrayList
+)
+
+
+$PSCmdlet.{someParameter}		# Access the parameter value.
+$PSCmdlet.parameterSetName
+
+begin{}		# Output object creation, input parameter checks
+process{}	# Foreach obj in Pipeline
+end{}		# return Output, work on entire collection at once, Cleanup
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+# PSCustomObjects
+$_.psobject.properties.name		# object propery/noteProperty name list
+$_.psobject.getEnumerators()	# property names for standard objects
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+# Tips & tricks
+switch -Regex ($some.property){
+	'^(\d\d)|(\d\d\d)K$'	{# Do the thing}
+	'^(STD-T)\d{3,4}$'		{# or do this! }
+	
+# Check if object type is pass by reference
+[System.Collections.ArrayList].IsValueType
+
+# If something is pass by reference, consider using a copy/clone method if available for iteration modifications
+$clonedArray1 = $ArrayList.Clone()
+
+foreach($item in $clonedArray1){
+	$clonedArray.property = $item.property+1
+}
+
+# Get property names for similar objects stored in a collection by checking first object
+$ArrayList[0].psobject.Properties.name
+
+# Get array index for exact match, usually [string[]]
+[array]::IndexOf($array,$match)
+
+# When you cross a foreach() or a Foreach-Object loop, complex objects are pass-by-reference
+# only simple objects such as [string],[int], etc. are pass by value
+# for this reason, create pscustom objects inside the for loop
+
+$i=0
+$obj = [pscustom]@{
+	key1	=	"value!","me too","huzzah"
+	key2	=	"hey-o"
+}
+foreach($item in $obj.key1){
+	$modifyME = $item
+	$modifyME = $modifyMe.toUpper()
+	
+	$j = $i
+	$j++
+	
+	echo "Inside For Loop, modifyME : $modifyME"
+	echo "Inside For Loop, item		: $item"
+	echo "Inside For Loop, i		: $i"
+	echo "Inside For Loop, j		: $j"
+}
+
+echo "Inside For Loop, modifyME : $modifyME"
+echo "Inside For Loop, i		: $i"
